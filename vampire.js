@@ -6,8 +6,6 @@ class Vampire {
     this.creator = null;
   }
 
-  /** Simple tree methods **/
-
   // Adds the vampire as an offspring of this vampire
   addOffspring(vampire) {
   
@@ -43,39 +41,47 @@ class Vampire {
     }
   }
 
-<<<<<<< HEAD
     // Returns the vampire object with that name, or null if no vampire exists with that name
-    vampireWithName(name) {
-
+  vampireWithName(name) {
+    //console.log(name);
+    let vampire = this;
+    if (vampire.name === name) {
+      return vampire;
+    } else {
+      for (let item of this.offspring) {
+         item.vampireWithName(name);
+      }
+      return null;
+    }
     }
   
     // Returns the total number of vampires that exist
-    get totalDescendents() {
-  
+  get totalDescendents() {
+    let total = this.offspring.length;
+    if (this.offspring.length === 0) {
+      return total;
+    } else {
+      
+      for (let child of this.offspring) {
+        total = total + child.totalDescendents;
+
+      }
+     return total;
     }
+     }
   
     // Returns an array of all the vampires that were converted after 1980
     get allMillennialVampires() {
-  
+    let millennial = [];
+    if (this.yearConverted > 1980){
+      millennial.push(this);
+    };
+    
+    for (let item of this.offspring) {
+        millennial= millennial.concat(item.allMillennialVampires);
     }
-=======
-  /** Tree traversal methods **/
-
-  // Returns the vampire object with that name, or null if no vampire exists with that name
-  vampireWithName(name) {
-    
-  }
-
-  // Returns the total number of vampires that exist
-  get totalDescendents() {
-    
-  }
-
-  // Returns an array of all the vampires that were converted after 1980
-  get allMillennialVampires() {
-    
-  }
->>>>>>> origin/traversal
+    return millennial;
+    }
 
   /** Stretch **/
 
@@ -84,13 +90,13 @@ class Vampire {
   // For example:
   // * when comparing Ansel and Sarah, Ansel is the closest common anscestor.
   // * when comparing Ansel and Andrew, Ansel is the closest common anscestor.
-  closestCommonAncestor(vampire) {
-    if (this.numberOfVampiresFromOriginal < vampire.numberOfVampiresFromOriginal) {
-      return this.name;
-    } else {
-      return vampire.name;
-    }
-  }
+  // closestCommonAncestor(vampire) {
+  //   if (this.numberOfVampiresFromOriginal < vampire.numberOfVampiresFromOriginal) {
+  //     return this.name;
+  //   } else {
+  //     return vampire.name;
+  //   }
+  // }0
 }
 
 module.exports = Vampire;
